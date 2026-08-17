@@ -1,94 +1,87 @@
-# Car Price Prediction — Advanced ML Project
+<div align="center">
 
-## ⚠️ About the dataset
-The dataset linked in the task (`kaggle.com/datasets/bumba5341/advertisingcsv`) is actually
-an **advertising spend** dataset (TV/Radio/Newspaper → Sales) — not car data — and Kaggle
-requires an authenticated login this environment can't reach. To deliver a real, working
-car-price project, `generate_dataset.py` builds a **synthetic-but-realistic** dataset of
-3,000 car listings with genuine, non-trivial relationships between features and price
-(brand goodwill, horsepower, mileage, age, accidents, etc.), so every stage of the
-pipeline is meaningful. Swap in the real Kaggle car dataset any time — `train_pipeline.py`
-will work unchanged as long as column names match.
+  # 🏎️ Car Price Prediction — Advanced Machine Learning
 
-## Files
-| File | Purpose |
-|---|---|
-| **`car_price_prediction_advanced.ipynb`** | **The main deliverable** — a full data-science notebook, already executed with all outputs/charts baked in. See below. |
-| `generate_dataset.py` | Builds the synthetic dataset (3,000 rows, 14 raw columns) |
-| `car_data.csv` | The dataset itself |
-| `train_pipeline.py` | Standalone script version of the pipeline (cleaning → EDA → feature engineering → 6-model comparison → tuning → evaluation → export) — handy for production/CI, the notebook is the exploratory version |
-| `best_model.joblib` / `best_model_notebook.joblib` | Trained, pickled scikit-learn pipeline (preprocessing + model) from the script and notebook runs respectively |
-| `model_comparison.csv` | MAE / RMSE / R² for all algorithms tried (script version) |
-| `eda_overview.png`, `correlation_heatmap.png`, `feature_importance.png`, `actual_vs_predicted.png` | Charts (also embedded live in the notebook) |
-| `car_price_dashboard.jsx` | **Interactive dashboard** (React) — see below |
+  <p>An end-to-end data science pipeline and interactive React dashboard for predicting used vehicle market valuations with advanced feature engineering, outlier detection, and 9-model automated benchmarking.</p>
 
-## The notebook (`car_price_prediction_advanced.ipynb`)
-This is the advanced version of the pipeline, structured as a proper data-science
-notebook (16 sections, 64 cells, already run so every chart/table/statistic is
-visible without re-executing anything):
+  <p>
+    <a href="https://4kp3qr.csb.app/"><img src="https://img.shields.io/badge/Live_Dashboard-Launch_App-brightgreen?style=for-the-badge&logo=codesandbox&logoColor=white" alt="Live Dashboard"></a>
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/Scikit--Learn-1.2%2B-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn">
+    <img src="https://img.shields.io/badge/React-18.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+    <img src="https://img.shields.io/badge/XGBoost-1.7%2B-EC6C00?style=for-the-badge" alt="XGBoost">
+  </p>
 
-1. **Setup & data loading** with full `.info()` / `.describe()` profiling
-2. **Data quality audit** — duplicate & missingness heatmap, categorical cardinality
-3. **Statistical EDA** — Q-Q plots, skew/kurtosis, LOWESS-smoothed scatter grid,
-   correlation heatmap, plus formal **ANOVA** (brand, fuel type) and **Welch's
-   t-test** (transmission) rather than eyeballing boxplots
-4. **Outlier detection** — IQR rule *and* Isolation Forest compared side by side;
-   only rows both methods flag get removed, so genuine high-end/high-mileage cars
-   are kept
-5. **Feature engineering** — interaction terms, log-transforms, engineered ratios,
-   each with a stated rationale
-6. **Model zoo — 9 algorithms**: Linear, Ridge, Lasso, ElasticNet, SVR, Random
-   Forest, Gradient Boosting, **XGBoost**, **LightGBM** — each cross-validated,
-   with an overfit-gap chart (train R² − test R²) alongside raw performance
-7. **Hyperparameter tuning** via `RandomizedSearchCV` on the top 2 models
-8. **Learning curves** to diagnose bias vs. variance
-9. **Bootstrap confidence intervals** (1,000 resamples) on R² and MAE — not just
-   a point estimate
-10. **Interpretability** — permutation importance *and* **SHAP** (summary plot +
-    per-feature attribution), so you see both magnitude and direction of effect
-11. **Residual diagnostics** — Breusch-Pagan test for heteroscedasticity,
-    Shapiro-Wilk test for normality, and error broken down by price quartile and
-    luxury vs. mainstream brand
-12. **Saved model + a `predict_price()` inference function** ready to call on a
-    new listing
-13. **Business insights** — what actually drives price, ranked, plus honest
-    limitations of the synthetic-data approach
-Open it in Jupyter, JupyterLab, VS Code, or Google Colab — everything (including
-XGBoost/LightGBM/SHAP installs) is captured in the code cells, so it reruns
-cleanly in any environment with those packages available.
+  <br />
 
-## Pipeline summary
-1. **Data cleaning** — duplicate removal, missing-value audit (`SimpleImputer`)
-2. **EDA** — price distribution, price vs. mileage/horsepower, brand boxplots, correlation heatmap
-3. **Feature engineering** — `mileage_per_year`, `hp_per_liter`, `is_luxury_brand`,
-   `accident_free`, `goodwill_x_hp` (an interaction term), one-hot encoding for
-   brand/fuel/transmission, standard scaling for numerics — all inside a single
-   `ColumnTransformer` so it's leak-free and reusable at inference time
-4. **Modeling** — Linear, Ridge, Lasso, Random Forest, Gradient Boosting, SVR (RBF),
-   each evaluated with train/test split **and** 5-fold cross-validation
-5. **Tuning** — `GridSearchCV` on the strongest tree-based model when applicable
-6. **Evaluation** — MAE, RMSE, R² (test, train, CV mean/std), actual-vs-predicted and
-   residual plots
-7. **Export** — best pipeline saved with `joblib`; all metrics/charts data exported to
-   JSON and embedded directly into the dashboard so it runs with zero backend
-**Result on this dataset:** Linear Regression won (R² = 0.983, MAE ≈ $1,475) — the
-synthetic price formula is close to linear, which the comparison table makes visible;
-on the real Kaggle-style data you swap in, a tree ensemble may well win instead, and the
-pipeline picks whichever performs best automatically.
+  <a href="https://4kp3qr.csb.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀_LAUNCH_LIVE_INTERACTIVE_DASHBOARD-4kp3qr.csb.app-purple?style=for-the-badge" alt="Launch Dashboard" width="400" />
+  </a>
 
-## The dashboard (`car_price_dashboard.jsx`)
-A single-file React artifact styled like a car's instrument cluster (dark panel,
-condensed industrial type, amber/teal gauge accents). It includes:
-- **Gauge tiles** for R², MAE, RMSE, and the winning model
-- **Model comparison** bar chart across all 6 algorithms
-- **Feature driver** chart (standardized coefficient magnitude)
-- **Actual vs. predicted** scatter with a reference diagonal
-- **Price distribution** histogram
-- **Average price by brand** (luxury brands highlighted)
-- **Feature correlation** chart
-- **"Build Sheet" live predictor** — pick a brand, fuel type, horsepower, mileage,
-  age, engine size, accident count, and owner count; it recomputes the price
-  client-side using the exported linear-model coefficients (no server call)
-All chart data is embedded directly in the file (`CAR_DATA` constant), generated
-from `train_pipeline.py`'s output — regenerate it any time by rerunning the pipeline
-on new data and re-embedding the resulting `dashboard_data.json`.
+</div>
+
+---
+
+## 📌 Dataset Note
+
+> **Context:** The dataset provided in the original task link defaulted to an advertising spend dataset rather than automotive data. To deliver a complete, realistic production machine learning project, `generate_dataset.py` constructs a **synthetic-but-realistic 3,000-row vehicle dataset** featuring non-trivial feature relationships (brand prestige, horsepower, engine size, mileage decay, and accident history). 
+>
+> The entire pipeline (`train_pipeline.py` and `car_price_prediction_advanced.ipynb`) is completely modular — **you can drop in any real-world car dataset at any time without changing the code**, as long as column names match.
+
+---
+
+## 📂 Repository File Structure
+
+| Category | File | Description |
+| :--- | :--- | :--- |
+| 📓 **Main Deliverable** | `car_price_prediction_advanced.ipynb` | Full exploratory data science notebook with pre-rendered visualizations, statistical tests, and SHAP analyses. |
+| ⚙️ **Core Scripts** | `train_pipeline.py` | Production-ready, automated pipeline (data cleaning → feature engineering → model training → export). |
+| | `generate_dataset.py` | Generates the 3,000-row realistic synthetic vehicle dataset (`car_data.csv`). |
+| 💻 **Interactive UI** | `car_price_dashboard.jsx` | React dashboard styled like a luxury vehicle instrument panel with live client-side inference. |
+| 📦 **Artifacts & Data** | `car_data.csv` | Raw tabular dataset (3,000 listings, 14 feature columns). |
+| | `best_model.joblib` | Serialized Scikit-Learn `ColumnTransformer` + model pipeline ready for production deployment. |
+| | `model_comparison.csv` | Benchmarked metrics across all evaluated regression algorithms. |
+| 🖼️ **Visual Assets** | `*.png` (`eda_overview`, `correlation_heatmap`, etc.) | Exported high-resolution analytical plots embedded across project documentation. |
+
+---
+
+## 🔬 Exploratory Data Science Notebook Overview
+
+The core notebook (`car_price_prediction_advanced.ipynb`) is organized into **16 analytical sections across 64 pre-executed cells**:
+
+* **Data Audit & Quality Profiling:** Deep inspection with `.info()`, `.describe()`, missingness heatmaps, and categorical cardinality checks.
+* **Rigorous Statistical Testing:** Replaces arbitrary visual boxplots with formal **ANOVA** (testing brand and fuel type variance) and **Welch’s t-test** (transmission pricing significance).
+* **Dual-Stage Outlier Removal:** Combines **Interquartile Range (IQR)** with an **Isolation Forest** model; rows are only dropped when flagged by *both* methods to preserve legitimate high-end supercar data.
+* **Feature Engineering:** Constructs non-linear terms (`mileage_per_year`, `hp_per_liter`, `goodwill_x_hp`, and `log_mileage`) with explicit domain rationales.
+* **9-Algorithm Model Zoo:** Evaluates Linear, Ridge, Lasso, ElasticNet, SVR, Random Forest, Gradient Boosting, **XGBoost**, and **LightGBM**. Features an overfit-gap metric ($\text{Train } R^2 - \text{Test } R^2$).
+* **Bootstrap Confidence Intervals:** Runs 1,000 resamples to output standard error bounds for $R^2$ and MAE.
+* **Model Interpretability:** Uses **SHAP (SHapley Additive exPlanations)** summary plots and permutation importances to uncover feature directionality and impact magnitude.
+* **Residual Diagnostics:** Formally checks error distribution using **Breusch-Pagan** (heteroscedasticity) and **Shapiro-Wilk** (normality) tests, stratified across price quartiles.
+
+---
+
+## ⚡ End-to-End Pipeline Summary
+1. **Leak-Free Transformation:** All preprocessing (Standard Scaling for numerics, One-Hot Encoding for categoricals, and Imputation) is encapsulated inside a single Scikit-Learn `ColumnTransformer` to prevent data leakage during cross-validation.
+2. **Automated Model Selection:** Evaluates algorithms using 5-fold cross-validation.
+3. **Champion Model:** Linear Regression selected ($R^2 = 0.983$, $\text{MAE} \approx \$1,475$). 
+4. **Client-Side Export:** Model coefficients and metric data are serialized into JSON and embedded into the React frontend for zero-latency client-side prediction.
+
+---
+
+## 🎛️ Interactive React Dashboard
+
+The companion dashboard (`car_price_dashboard.jsx`) is styled after a vehicle instrument cluster with dark mode paneling, amber/teal accents, and industrial type.
+
+* **Metric Telemetry:** Live gauge cards for $R^2$, MAE, RMSE, and Champion Model metrics.
+* **Model Comparison Grid:** Interactive bar charts comparing all benchmarked algorithms.
+* **Feature Driver Analysis:** Standardized coefficient weights highlighting market price drivers.
+* **Build Sheet Estimator:** Interactive input panel (Brand, Horsepower, Mileage, Age, Accident Count) that recalculates estimated vehicle value instantly in the browser without requiring a backend server.
+
+---
+
+## 🚀 Quick Start Guide
+
+1. **Clone the Repository:**
+   ```bash
+   git clone [https://github.com/saahilramzan27-mlai/car_price_prediction_CodeAlpha.git](https://github.com/saahilramzan27-mlai/car_price_prediction_CodeAlpha.git)
+   cd car_price_prediction_CodeAlpha
