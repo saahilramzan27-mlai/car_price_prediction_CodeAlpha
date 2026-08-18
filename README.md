@@ -5,11 +5,12 @@
   <p>An end-to-end data science pipeline and interactive React dashboard for predicting used vehicle market valuations with advanced feature engineering, outlier detection, and 9-model automated benchmarking.</p>
 
   <p>
-    <a href="https://4kp3qr.csb.app/"><img src="https://img.shields.io/badge/Live_Dashboard-Launch_App-brightgreen?style=for-the-badge&logo=codesandbox&logoColor=white" alt="Live Dashboard"></a>
-    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-    <img src="https://img.shields.io/badge/Scikit--Learn-1.2%2B-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn">
-    <img src="https://img.shields.io/badge/React-18.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
-    <img src="https://img.shields.io/badge/XGBoost-1.7%2B-EC6C00?style=for-the-badge" alt="XGBoost">
+    <a href="https://4kp3qr.csb.app/" target="_blank"><img src="https://img.shields.io/badge/Live_Dashboard-Launch_App-brightgreen?style=for-the-badge&logo=codesandbox&logoColor=white" alt="Live Dashboard"></a>
+    <a href="https://www.python.org/" target="_blank"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+    <a href="https://scikit-learn.org/" target="_blank"><img src="https://img.shields.io/badge/Scikit--Learn-1.2%2B-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn"></a>
+    <a href="https://react.dev/" target="_blank"><img src="https://img.shields.io/badge/React-18.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"></a>
+    <a href="https://xgboost.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/XGBoost-1.7%2B-EC6C00?style=for-the-badge" alt="XGBoost"></a>
+    <a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
   </p>
 
   <br />
